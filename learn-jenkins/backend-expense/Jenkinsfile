@@ -40,10 +40,9 @@ pipeline {
             steps{
                 sh """
                     cd learn-jenkins/backend-expense
-                    docker ps
-                    id
-                    docker build -t kdprasad028/backend_aug:${appVersion} .
-                    docker images
+                    whoami
+                    // docker build -t kdprasad028/backend_aug:${appVersion} .
+                    // docker images
                 """
             }
         }
