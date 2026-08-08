@@ -3,28 +3,55 @@ pipeline {
     options{
         timeout(time: 5, unit: 'MINUTES')
         disableConcurrentBuilds()
-        // retry(3)
+        retry(3)
     }
+    parameters {
+        string(name: 'NAME', defaultValue: 'Durga', description: 'Please enter your name')
+
+        text(name: 'EDUCATION', defaultValue: '', description: 'Please provide your background')
+
+        booleanParam(name: 'TOGGLE', defaultValue: false, description: 'Select your answer')
+
+        choice(name: 'SELECT', choices: ['dev', 'qa', 'uat'], description: 'Select your choices')
+
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter your password')
+    }
+    
     stages{
         stage("Test"){
             steps{
-                echo "This is test stage"
+                echo "Hello this is test stage"
             }
         }
         stage("Build"){
-            steps{
-                echo "This is Build Stage"
-                // sh 'sleep 10'
-                // error 'pipeline failed'
-            }   
-        }
-        stage("Deploy"){
             when {
                 branch 'production'
                 // expression {env.GIT_BRANCH == 'origin/main'}
             }
             steps{
-                echo "This is Deploy stage"
+                echo "this build stage"
+            }
+        }
+        stage("Test"){
+            steps{
+                echo "Hello ${params.NAME}"
+                echo "Biography: ${params.EDUCATION}"
+                echo "Toggle: ${params.TOGGLE}"
+                echo "Choice: ${params.SELECT}"
+                echo "password: ${params.PASSWORD}"
+            }
+        }
+        stage('Approval') {
+            input {
+                message "Can we deploy this stage?"
+                ok "Yes, you can proceed."
+                submitter "Manager-Prasad"
+                parameters {
+                    string(name: 'NAME', defaultValue: 'Durga', description: 'Please enter your name')
+                }
+            }
+            steps {
+                echo "Reviewed and Aprroved by ${NAME}, Line Manager"
             }
         }
     }

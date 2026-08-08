@@ -37,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Aprroved by ${NAME}, Line Manager"
+                echo "Reviewed and Aprroved by ${NAME}, Line Manager"
             }
         }
     }
