@@ -21,13 +21,13 @@ pipeline {
         stage("Test"){
             steps{
                 echo "Hello this is test stage"
-                sh 'env'
+                // sh 'env'
             }
         }
         stage("Build"){
             when {
-                branch 'production'
-                // expression {env.GIT_BRANCH == 'origin/main'}
+                // branch 'production'
+                expression {env.GIT_BRANCH == 'origin/main'}
             }
             steps{
                 echo "this build stage"
