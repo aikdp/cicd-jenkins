@@ -32,7 +32,7 @@ pipeline {
                 echo "this build stage"
             }
         }
-        stage("Test"){
+        stage("Params"){
             steps{
                 echo "Hello ${params.NAME}"
                 echo "Biography: ${params.EDUCATION}"
