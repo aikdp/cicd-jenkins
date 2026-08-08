@@ -6,24 +6,24 @@ pipeline {
         retry(3)
     }
     parameters {
-        string(name: 'PERSON', defaultValue: 'Durga', description: 'Who should I say hello to?')
+        string(name: 'NAME', defaultValue: 'Durga', description: 'Please enter your name')
 
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+        text(name: 'EDUCATION', defaultValue: '', description: 'Please provide your background')
 
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        booleanParam(name: 'TOGGLE', defaultValue: false, description: 'Select your answer')
 
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Select your choices')
+        choice(name: 'SELECT', choices: ['dev', 'qa', 'uat'], description: 'Select your choices')
 
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter your password')
     }
 
     stages{
         stage("Test"){
             steps{
-                echo "Hello ${params.$PERSON}"
-                echo "Biography: ${params.BIOGRAPHY}"
+                echo "Hello ${params.$NAME}"
+                echo "Biography: ${params.EDUCATION}"
                 echo "Toggle: ${params.TOGGLE}"
-                echo "Choice: ${params.CHOICE}"
+                echo "Choice: ${params.SELECT}"
                 echo "password: ${params.PASSWORD}"
             }
         }
