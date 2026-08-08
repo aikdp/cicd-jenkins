@@ -3,7 +3,7 @@ pipeline {
     options{
         timeout(time: 5, unit: 'MINUTES')
         disableConcurrentBuilds()
-        retry(3)
+        // retry(3)
     }
     stages{
         stage('Read Version'){
