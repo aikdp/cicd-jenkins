@@ -12,6 +12,7 @@ pipeline {
         stage('Read Version'){
             steps{
                 script{
+                    dir('backend-expense'){
                      // Read a file from the workspace
                     def jsonObject = readJSON file: 'package.json'
         
@@ -22,6 +23,7 @@ pipeline {
                     appVersion = ${jsonObject.version}
 
                     echo "App version is ${appVersion}"
+                    }
                 }
             }
         }
