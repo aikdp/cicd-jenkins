@@ -12,7 +12,7 @@ pipeline {
         stage('Read Version'){
             steps{
                 script{
-                    dir('backend-expense'){
+                    dir('learn-jenkins/backend-expense'){
                      // Read a file from the workspace
                     def jsonObject = readJSON file: 'package.json'
         
