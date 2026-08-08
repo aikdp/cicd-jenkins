@@ -27,20 +27,23 @@ pipeline {
                 }
             }
         }
-        // stage("Dependecies Installation"){
-        //     steps{
-        //         sh 'npm install'
-        //         //  before this command, your agent or server needs the nodejs package should present for installing dependecies
-        //     }
-        // }
-        stage("Build Docker Image"){
+        stage("Dependecies Installation"){
             steps{
-                sh """
-                    docker build -t kdprasad028/backend_aug:${appVersion}
-                    docker images
-                """
+                sh '''
+                    cd learn-jenkins/backend-expense
+                    npm install
+                '''
+                //  before this command, your agent or server needs the nodejs package should present for installing dependecies
             }
         }
+        // stage("Build Docker Image"){
+        //     steps{
+        //         sh """
+        //             docker build -t kdprasad028/backend_aug:${appVersion}
+        //             docker images
+        //         """
+        //     }
+        // }
         stage("Test"){
             steps{
                 echo "This is test stage"
