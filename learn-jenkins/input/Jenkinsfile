@@ -37,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Hello, ${NAME}, How are you"
+                echo "Aprroved by ${NAME}, Line Manager"
             }
         }
     }
