@@ -21,38 +21,29 @@ CHECK(){
 }
 CHECK
 
-# install java
-sudo apt update
-sudo apt install fontconfig openjdk-21-jre -y
-java -version
+# Jenkins
 
-sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
-echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt update
-sudo apt install jenkins -y
-
+sudo curl -o /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/rpm-stable/jenkins.repo
+#sudo dnf upgrade
+# Add required dependencies for the Jenkins package
+sudo dnf install fontconfig java-21-openjdk -y
+sudo dnf install jenkins -y
+sudo systemctl daemon-reload
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
-sudo systemctl status jenkins
 VALIDATE $? "Jenkins Installation"
 
 
-# Install Java 8, Java 11 & Docker
-apt update
-apt install -y openjdk-8-jdk openjdk-11-jdk docker.io maven
-usermod -a -G docker ubuntu
+# Install Docker
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo systemctl start docker
+sudo systemctl status docker
+sudo usermod -aG docker ec2-user
 VALIDATE $? "Docker user Installation"
 
-#Trivy
-sudo apt-get install wget gnupg
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-sudo apt-get update
-sudo apt-get install trivy -y
-VALIDATE $? "Trivy Installation"
 
 echo "   =================================="
 echo "** Your Jenkins Master server is ready for use **"

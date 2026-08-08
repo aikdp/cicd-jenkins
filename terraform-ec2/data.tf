@@ -1,10 +1,10 @@
 
-data "aws_ami" "ubuntu" {
+data "aws_ami" "rhel" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-resolute-26.04-amd64-server-*"]
+    values = ["Redhat-9-DevOps-Practice"]
   }
 
   filter {
@@ -12,5 +12,5 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["973714476881"] # Canonical
 }

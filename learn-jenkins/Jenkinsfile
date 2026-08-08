@@ -20,7 +20,7 @@ pipeline {
 
     post{
         always{
-            delDir()
+            deleteDir()
             echo "This is will run every build"
         }
         success{

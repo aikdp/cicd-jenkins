@@ -17,8 +17,8 @@ variable "sg_id" {
 #Instance type
 variable "instance_type" {
     default = {
-      master = "c7i-flex.large"
-      agent = "c7i-flex.large"
+      master = "t3.small"
+      # agent = "c7i-flex.large"
     }
 }
 
@@ -42,7 +42,7 @@ variable "zone_id" {
 variable "common_tags" {
   type = map
   default = {
-    Project     = "jenkins-gitlab"
+    Project     = "jenkins"
     Terraform   = "true"
     environment = "dev"
   }
