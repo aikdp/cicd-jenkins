@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+    options{
+        timeout(time: 5, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        retry(3)
+    }
+    stages{
+        stage('Read Version'){
+            steps{
+                 // Read a file from the workspace
+                def jsonObject = readJSON file: 'package.json'
+    
+                // Access properties directly using dot notation
+                echo "Project Name is:: ${jsonObject.name}"
+                echo "Project Version is:: ${jsonObject.version}"
+
+                appVersion = ${jsonObject.version}
+
+                echo "App version is ${appVersion}"
+            }
+        }
+        // stage("Dependecies Installation"){
+        //     steps{
+        //         sh 'npm install'
+        //         //  before this command, your agent or server needs the nodejs package should present for installing dependecies
+        //     }
+        // }
+        stage("Build Docker Image"){
+            steps{
+                sh """
+                    docker build -t kdprasad028/backend_aug:${appVersion}
+                    docker images
+                """
+            }
+        }
+        stage("Test"){
+            steps{
+                echo "This is test stage"
+            }
+        }
+        stage("Build"){
+            steps{
+                echo "This is Build Stage"
+            }   
+        }
+        stage("Deploy"){
+            steps{
+                echo "This is Deploy stage"
+            }
+        }
+    }
+
+    post{
+        always{
+            deleteDir()
+            echo "This is will run every build"
+        }
+        success{
+            echo "This action runs only when build is success"
+        }
+        failure{
+            echo "This action will run when build fail"
+        }
+    }
+}

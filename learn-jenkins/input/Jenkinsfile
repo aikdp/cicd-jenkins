@@ -20,14 +20,28 @@ pipeline {
     stages{
         stage("Test"){
             steps{
-                echo "Hi ${params.NAME}"
+                echo "Hello ${params.NAME}"
                 echo "Biography: ${params.EDUCATION}"
                 echo "Toggle: ${params.TOGGLE}"
                 echo "Choice: ${params.SELECT}"
                 echo "password: ${params.PASSWORD}"
             }
         }
+        stage('Approval') {
+            input {
+                message "Can we deploy this stage?"
+                ok "Yes, you can proceed."
+                submitter "Manager-Prasad"
+                parameters {
+                    string(name: 'NAME', defaultValue: 'Durga', description: 'Please enter your name')
+                }
+            }
+            steps {
+                echo "Hello, ${NAME}, nice to meet you."
+            }
+        }
     }
+
     post{
         always{
             deleteDir()
