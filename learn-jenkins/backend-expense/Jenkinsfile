@@ -5,6 +5,9 @@ pipeline {
         disableConcurrentBuilds()
         // retry(3)
     }
+    environment{
+        appVersion = ''
+    }
     stages{
         stage('Read Version'){
             steps{
