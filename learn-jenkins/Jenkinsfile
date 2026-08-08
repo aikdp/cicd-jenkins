@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages{
+        stage("Test"){
+            steps{
+                sh "This is test stage"
+            }
+        }
+        stage("Build"){
+            steps{
+                sh "This is Build Stage"
+            }
+        }
+        stage("Deploy"){
+            steps{
+                sh "This is Deploy stage"
+            }
+        }
+    }
+
+    post{
+        always{
+            delDir()
+            echo "This is will run every build"
+        }
+        success{
+            echo "This action runs only when build is success"
+        }
+        failure{
+            echo "This action will run when build fail"
+        }
+    }
+}
