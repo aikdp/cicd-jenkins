@@ -41,8 +41,8 @@ pipeline {
                 sh """
                     cd learn-jenkins/backend-expense
                     whoami
-                    // docker build -t kdprasad028/backend_aug:${appVersion} .
-                    // docker images
+                    docker build -t kdprasad028/backend_aug:${appVersion} .
+                    docker images
                 """
             }
         }
