@@ -8,16 +8,18 @@ pipeline {
     stages{
         stage('Read Version'){
             steps{
-                 // Read a file from the workspace
-                def jsonObject = readJSON file: 'package.json'
-    
-                // Access properties directly using dot notation
-                echo "Project Name is:: ${jsonObject.name}"
-                echo "Project Version is:: ${jsonObject.version}"
+                script{
+                     // Read a file from the workspace
+                    def jsonObject = readJSON file: 'package.json'
+        
+                    // Access properties directly using dot notation
+                    echo "Project Name is:: ${jsonObject.name}"
+                    echo "Project Version is:: ${jsonObject.version}"
 
-                appVersion = ${jsonObject.version}
+                    appVersion = ${jsonObject.version}
 
-                echo "App version is ${appVersion}"
+                    echo "App version is ${appVersion}"
+                }
             }
         }
         // stage("Dependecies Installation"){
