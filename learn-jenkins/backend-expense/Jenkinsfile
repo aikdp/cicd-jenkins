@@ -20,7 +20,7 @@ pipeline {
                     echo "Project Name is:: ${jsonObject.name}"
                     echo "Project Version is:: ${jsonObject.version}"
 
-                    appVersion = ${jsonObject.version}
+                    appVersion = jsonObject.version
 
                     echo "App version is ${appVersion}"
                     }
