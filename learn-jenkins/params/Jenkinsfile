@@ -20,7 +20,7 @@ pipeline {
     stages{
         stage("Test"){
             steps{
-                echo "Hi ${params.NAME}"
+                echo "Hello ${params.NAME}"
                 echo "Biography: ${params.EDUCATION}"
                 echo "Toggle: ${params.TOGGLE}"
                 echo "Choice: ${params.SELECT}"
