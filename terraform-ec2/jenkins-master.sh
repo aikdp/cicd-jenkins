@@ -42,6 +42,7 @@ sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 sudo systemctl start docker
 sudo systemctl status docker
 sudo usermod -aG docker ec2-user
+
 VALIDATE $? "Docker user Installation"
 
 
